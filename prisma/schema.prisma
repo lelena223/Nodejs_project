@@ -9,3 +9,27 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       Int     @unique @default(autoincrement())
+  username String  @unique @db.VarChar(50)
+  password String  @db.VarChar(255)
+  email    String  @unique @db.VarChar(255)
+  name     String  @db.VarChar(255)
+  avatar   String? @db.VarChar(255)
+  gender   Gender  @default(Others)
+  role     Role    @default(User)
+
+  @@map("user")
+}
+
+enum Role {
+  Admin
+  User
+}
+
+enum Gender {
+  Male
+  FeMale
+  Others
+}
